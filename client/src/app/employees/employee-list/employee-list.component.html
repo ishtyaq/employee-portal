@@ -1,0 +1,63 @@
+<button
+  class="btn btn-primary ml-5"
+  style="margin-top: 100px"
+  [routerLink]="['employees']"
+  type="submit"
+>
+  Add New
+</button>
+<div class="table-responsive-sm ml-5 mr-5 mt-2">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Hire Date</th>
+        <th scope="col">Salary</th>
+        <th scope="col">Manager</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of employees">
+        <th scope="row">{{ employee.id }}</th>
+        <td>{{ employee.firstName }}</td>
+        <td>{{ employee.lastName }}</td>
+        <td>{{ employee.email }}</td>
+        <td>{{ employee.phone }}</td>
+        <td>{{ employee.hireDate | date }}</td>
+        <td>{{ employee.salary }}</td>
+        <td>{{ employee.manager }}</td>
+        <td>
+          <a [routerLink]="['employees']" [state]="{ employee: employee }">
+            <i class="fa fa-edit fa-2x mr-2"></i>
+          </a>
+          <a
+            (click)="$event.stopPropagation()"
+            (click)="deleteEmployee(employee.id)"
+          >
+            <i class="fa fa-trash fa-2x mr-2"></i
+          ></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="d-flex justify-content-center" *ngIf="pagination">
+  <pagination
+    [boundaryLinks]="true"
+    [totalItems]="pagination.totalElements"
+    [itemsPerPage]="pagination.size"
+    [(ngModel)]="pagination.pageNumber"
+    (pageChanged)="pageChanged($event)"
+    [maxSize]="2"
+    previousText="&lsaquo;"
+    nextText="&rsaquo;"
+    firstText="&laquo;"
+    lastText="&raquo;"
+  >
+  </pagination>
+</div>

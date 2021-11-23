@@ -1,0 +1,17 @@
+version: '1'
+services:
+  registration-portal:
+    image: employeeportal/employeeclient:latest
+    environment:
+      - spring.profiles.active=${PROFILE}
+      - employee.backend.service.url=${EMPLOYEE_BACKEND_URL}
+    depends_on:
+      - employee-backend
+    ports:
+      - 8200:8080
+  employee-backend:
+    image: smartsalem/employee-backend:latest
+    environment:
+      - spring.profiles.active=${PROFILE}
+      - registration.backend.datasource.url=${DATASOURCE_URL}
+
